@@ -1,0 +1,45 @@
+<p>Using your own domain to direct short URLs with 0tr.me is easy and <strong>free</strong> using Page Rules and some DNS magic! We're<span class="no-mobile"> going to assume you're</span> using Cloudflare<span class="no-mobile"> for this, but most DNS providers have a similar setup and this should work fine with them</span>.</p>
+
+<ol>
+  <li>Launch <span class="no-mobile">your</span> <a href="https://dash.cloudflare.com">Cloudflare <span class="no-mobile">Dashboard</span></a> and choose the site you want <span class="no-mobile">to use</span> for <span class="no-mobile">0tr.me</span> short URLs
+  <br>
+<img class="imgDir" src="https://cdn.glitch.global/65f2254a-8e40-4b88-aae8-bb42a288bd4d/Screenshot%202023-03-23%20at%2010.10.48%20PM.png?v=1679625176445">
+    
+  </li>
+  <li>
+Navigate to DNS and add a new DNS record<span class="no-mobile">. Set TTL to auto if needed</span>:
+
+<table style="color: black; text-align: center;">
+	<tbody>
+		<tr>
+			<td>Type</td>
+			<td>Name/Location</td>
+			<td>Content/Points to</td>
+      	<td>Proxy Status</td>
+		</tr>
+		<tr>
+			<td><code>A</code></td>
+			<td>(subdomain/use @ for root)</td>
+			<td><code>192.0.2.1</code></td>
+      <td><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDQgMzkuNSI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM5OTk7fS5jbHMtMntmaWxsOiNmNjhhMWQ7fS5jbHMtM3tmaWxsOiNmZmY7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5Bc3NldCAxPC90aXRsZT48ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBpZD0iTGF5ZXJfMS0yIiBkYXRhLW5hbWU9IkxheWVyIDEiPjxwb2x5Z29uIGNsYXNzPSJjbHMtMSIgcG9pbnRzPSIxMDQgMjAuMTIgOTQgMTAuNjIgOTQgMTYuMTIgMCAxNi4xMiAwIDI0LjEyIDk0IDI0LjEyIDk0IDI5LjYyIDEwNCAyMC4xMiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTc0LjUsMzljLTIuMDgsMC0xNS40My0uMTMtMjguMzQtLjI1LTEyLjYyLS4xMi0yNS42OC0uMjUtMjcuNjYtLjI1YTgsOCwwLDAsMS0xLTE1LjkzYzAtLjE5LDAtLjM4LDAtLjU3YTkuNDksOS40OSwwLDAsMSwxNC45LTcuODEsMTkuNDgsMTkuNDgsMCwwLDEsMzguMDUsNC42M0ExMC41LDEwLjUsMCwxLDEsNzQuNSwzOVoiLz48cGF0aCBjbGFzcz0iY2xzLTMiIGQ9Ik01MSwxQTE5LDE5LDAsMCwxLDcwLDE5LjU5LDEwLDEwLDAsMSwxLDc0LjUsMzguNWMtNC4xMSwwLTUyLS41LTU2LS41YTcuNSw3LjUsMCwwLDEtLjQ0LTE1QTguNDcsOC40NywwLDAsMSwxOCwyMmE5LDksMCwwLDEsMTQuNjgtN0ExOSwxOSwwLDAsMSw1MSwxbTAtMUEyMCwyMCwwLDAsMCwzMi4xMywxMy40MiwxMCwxMCwwLDAsMCwxNywyMnYuMTRBOC41LDguNSwwLDAsMCwxOC41LDM5YzIsMCwxNSwuMTMsMjcuNjYuMjUsMTIuOTEuMTIsMjYuMjYuMjUsMjguMzQuMjVhMTEsMTEsMCwxLDAtMy42MS0yMS4zOUEyMC4xLDIwLjEsMCwwLDAsNTEsMFoiLz48L2c+PC9nPjwvc3ZnPg==" style="width: 25px"> Proxied</td>
+		</tr>
+	</tbody>
+</table>
+
+<img class="imgDir no-mobile" src="https://cdn.glitch.global/65f2254a-8e40-4b88-aae8-bb42a288bd4d/Screenshot%202023-03-23%20at%2010.16.17%20PM.png?v=1679625187049"> <img class="imgDir no-mobile" src="https://cdn.glitch.global/65f2254a-8e40-4b88-aae8-bb42a288bd4d/Screenshot%202023-03-23%20at%2010.25.50%20PM.png?v=1679625190406">
+    
+  </li>
+  <li>Visit Rules section, select Page Rules and click Create Page Rule
+  <br>
+    <img class="imgDir no-mobile" src="https://cdn.glitch.global/65f2254a-8e40-4b88-aae8-bb42a288bd4d/Screenshot%202023-03-23%20at%2010.12.54%20PM.png?v=1679625178855">  <img class="imgDir" src="https://cdn.glitch.global/65f2254a-8e40-4b88-aae8-bb42a288bd4d/Screenshot%202023-03-23%20at%2010.30.08%20PM.png?v=1679625194131">
+    <ul class="no-mobile">
+      <li>
+        This may not work properly if you have colliding Page Rules. Re-route or remove redirects if you notice any issues.
+      </li>
+    </ul>
+  </li>
+  <li>
+   Test your custom domain works by visiting <code>/example</code>!<br>You'll still need to visit 0tr.me to shorten URLs, but now you can share short links with your own domain.
+
+  </li>
+</ol>
