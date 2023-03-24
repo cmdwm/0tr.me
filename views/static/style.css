@@ -403,3 +403,9 @@ input:invalid {
    zoom: 10%;
   }
 }
+div.ea-content {
+  background-color: white !important;
+}
+div.ea-callout {
+  color: white !important;
+}
