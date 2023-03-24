@@ -3,7 +3,7 @@ const app = express();
 const rateLimit = require('express-rate-limit')
 var randomstring = require("random-string-gen");
 const qjson = require("qjson-db");
-const fetch = require('node-fetch')
+var request = require('request');
 const db = new qjson(__dirname + "/storage.json");
 
 const wave = process.env.wave
@@ -20,7 +20,6 @@ const apiLimiter = rateLimit({
 // Apply the rate limiting middleware to API calls only
 app.use('/submit', apiLimiter)
 
-var request = require('request');
 var options = {
   'method': 'GET',
   'url': 'https://api.github.com/repos/cmdwm/0tr.me/contributors',
