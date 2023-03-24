@@ -22,4 +22,4 @@ It would be great if you could not only report bugs you find (by opening an issu
 ## License
 This project essentially has a do whatever you want license. You can copy code, host this locally, or steal it with or without credit (even though it is greatly appreciated to linkback to my [website](https://willm.xyz)). Please note any `cdn.glitch.global` files are subject to copyright by their lawful owner. 
 
-[![buy me a coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00.svg?style=for-the-badge&logo=Buy-Me-A-Coffee&logoColor=black  'buy me a coffee')](https://bmc.xyz/willymuffin)
+[![buy me a coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00.svg?style=for-the-badge&logo=Buy-Me-A-Coffee&logoColor=black  'buy me a coffee')](https://bmc.xyz/willymuffin) [![cashapp](https://img.shields.io/badge/Cash%20App-00C244.svg?style=for-the-badge&logo=Cash-App&logoColor=white 'cashapp')](https://cash.app/$willmccrudden) 
