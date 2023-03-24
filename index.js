@@ -3,6 +3,7 @@ const app = express();
 const rateLimit = require('express-rate-limit')
 var randomstring = require("random-string-gen");
 const qjson = require("qjson-db");
+const fetch = require('node-fetch')
 const db = new qjson(__dirname + "/storage.json");
 
 const wave = process.env.wave
@@ -19,10 +20,37 @@ const apiLimiter = rateLimit({
 // Apply the rate limiting middleware to API calls only
 app.use('/submit', apiLimiter)
 
-app.get('/', (req, res) => {
+var request = require('request');
+var options = {
+  'method': 'GET',
+  'url': 'https://api.github.com/repos/cmdwm/0tr.me/contributors',
+  'headers': {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+  }
+};
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
   
+  var contributors = JSON.parse(body);
+  
+  // Concatenate the login names of all contributors into a single string
+  var contributorNames = contributors.map(function(contributor) {
+    return `<li><a href="${contributor.login}">` + contributor.login + `</a></li>`;
+  }).join('<br>');
+  
+  // Log the single string containing all contributor names
+  db.set('contributors', `<ul>` + contributorNames + `</ul>`);
+});
+
+
+
+
+
+app.get('/', (req, res) => {
+  var contributors = db.get('contributors')
     res.render('index', {
-     'example': 'test'
+     'contributors': contributors
     });
 });
 

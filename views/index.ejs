@@ -62,7 +62,6 @@
     </div>
 
 <details open><summary>Decode short URL</summary>
-
 <p>  <center>
 <input style="width: 45% !important; display: inline-block; color: black !important;" name="decSl" placeholder="0tr.me/xxxx" id="decSl" type="text"> <input style="width: 45%; display: inline-block; cursor: pointer; background: black; color: whitw;" name="decSl" onclick="slDecode()" value='decode →' type="submit">
   
@@ -70,6 +69,13 @@
 </details>
     <details><summary>Use a custom domain</summary>
   <%- include('/home/runner/otter-dot-me/views/partials/custom-domain.ejs') %>
+    </details>
+
+    <details><summary class="gradient1">Special thanks to...</summary>
+    These awesome people contributed to <a href="https://github.com/cmdmw/0tr.me">0tr.me's open source development</a>. You can also <a href="https://bmc.xyz/willymuffin">buy me a coffee</a> to support 0tr.me.
+      <%- contributors %>
+      
+        Find a bug or want to add a feature? <a href="https://github.com/cmdwm/0tr.me/pulls">Make a pull request</a> and you'll see your name on this list!
     </details>
 
   

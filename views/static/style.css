@@ -398,3 +398,8 @@ input:invalid {
   animation: shake 0.2s ease-in-out 0s 2;
   box-shadow: 0 0 0.6rem #4D65F1;
 }
+@media screen and (max-width: 480px) {
+  table {
+   zoom: 10%;
+  }
+}
