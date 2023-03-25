@@ -76,7 +76,7 @@ body {
   }
 }
  details {
-	 margin: 1rem auto;
+	 margin: 1rem;
 	 padding: 0 1rem;
 	 width: 35em;
 	 max-width: calc(100% - 2rem);
@@ -111,30 +111,11 @@ body {
 	 opacity: 0.6;
 }
  summary {
-	 padding: 1rem 2em 1rem 0;
 	 display: block;
 	 position: relative;
 	 font-size: 1.33em;
 	 font-weight: bold;
 	 cursor: pointer;
-}
- summary::before, summary::after {
-	 width: 0.75em;
-	 height: 2px;
-	 position: absolute;
-	 top: 50%;
-	 right: 0;
-	 content: '';
-	 background-color: currentColor;
-	 text-align: right;
-	 transform: translateY(-50%);
-	 transition: transform 0.2s ease-in-out;
-}
- summary::after {
-	 transform: translateY(-50%) rotate(90deg);
-}
- [open] summary::after {
-	 transform: translateY(-50%) rotate(180deg);
 }
  summary::-webkit-details-marker {
 	 display: none;
@@ -408,4 +389,114 @@ div.ea-content {
 }
 div.ea-callout {
   color: white !important;
+}
+.upload-btn-wrapper {
+    width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 120px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer !important;
+}
+.btn {
+    width: 100%;
+  background-color: #FFFFFF;
+  border: 1px solid rgb(209,213,219);
+  border-radius: .5rem;
+  color: #111827;
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  padding: .75rem 1rem;
+  text-align: center;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+}
+
+.btn:hover {
+  background-color: #f9fafb;
+}
+
+.btn:focus {
+  outline: 2px solid rgba(0,0,0,0.1);
+  outline-offset: 2px;
+}
+
+.btn:focus-visible {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }

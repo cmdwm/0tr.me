@@ -1,6 +1,6 @@
-# 🦦 0tr.me URL shortener
+# 🦦 0tr.me URL shortener & file host
 
-Hello world! [0tr.me](https://0tr.me) is a free, open source and lightweight URL shortener. It has support for custom domains and decoding short links to expose the long URL behind it. 
+Hello world! [0tr.me](https://0tr.me) is a free, open source and lightweight URL shortener/file host. It has support for custom domains and decoding short links to expose the long URL behind it. 
 
 ## How to self-host it
 While I don't plan on providing support for self-hosting, I can tell you some basic things to get you started. This project is programmed in Node (obviously), with Express.js to serve content and qjson-db to store slugs. 

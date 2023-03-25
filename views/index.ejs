@@ -1,13 +1,14 @@
 <html>
   <head>
+    <script src="https://confettijs.org/confetti.min.js"></script>
     <script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style.css"/>
 <link rel="stylesheet" href="https://unpkg.com/marx-css/css/marx.min.css">
-    <meta name="description" content="0tr.me, another url shortener because i can't stop buying domains.">
+    <meta name="description" content="0tr.me, another url shortener & file host because i can't stop buying domains.">
     <link rel="icon" type="image/png" href="https://cdn.glitch.global/65f2254a-8e40-4b88-aae8-bb42a288bd4d/Untitled%20design-16.png?v=1679271176829">
       <script src="https://kit.fontawesome.com/22bd0071f3.js" crossorigin="anonymous"></script>  
     <title>otter</title>
@@ -24,17 +25,26 @@
       
  <center>
      <h4 style="margin: 0; text-transform: uppercase;">
+       <label title="Toggle file host/shorten URL" id="swiCl" class="switch" style="float: right !important; margin: 10px;">
+  <input onchange="fileSwitch()" id="check" type="checkbox">
+  <span class="slider round"></span>
+</label>
       this domain was expensive<span class="no-mobile">, so use it plz</span>.<br>
        follow me<span class="no-mobile"> on twitter</span> <a style="color: white;" href="https://twitter.com/willmccrudden">@willmccrudden</a><span class="no-mobile">.</span>
-      </h4>
-
+     </h4>
+    <div class="no-mobile" id="uStatus" style="float: right !important; margin: 10px; font-size: 15px;">File host?</div>
 
     </div>
     <img style="width: 100%" src="https://cdn.glitch.global/65f2254a-8e40-4b88-aae8-bb42a288bd4d/wave.svg?v=1679271908333">
     <div style="background-color: #fb9a28; margin: 0; ">
       <div style="margin-left: 10px; margin-right: 10px;">
+
+
+
+<%- include('/home/runner/otter-dot-me/views/partials/file-upload.ejs') %>
+
         
-     <form action="/submit" target="subFrame" style="zoom: 120%; padding: 20px;">
+     <form id="url" action="/submit" target="subFrame" style="zoom: 120%; padding: 20px;">
       
        <input paattern='^(ftp|http|https):\/\/[^ "]+$' id="urlF" required name="url" style="margin-bottom: 30px;" onclick="this.value = 'https://'; this.select()" placeholder="Give us your looooong URL" type="url">
        <iframe name="subFrame" style="width: 100%; height: 100px;"></iframe>
@@ -84,7 +94,6 @@
         Find a bug or want to add a feature? <a href="https://github.com/cmdwm/0tr.me/pulls">Make a pull request</a> and you'll see your name on this list!
     </details>
 
-  
     <center style="margin-bottom: 80px;">Made with <i style="color: red;" class="fa-solid fa-heart"></i> by <a href="https://willm.xyz" style="text-decoration: none; color: white;"><u>Will M</u></a> <br><i>&copy; 2023 McCrudden Innovations LP</i></center>
     <div data-ea-publisher="maileeco" id="otter" data-ea-type="text" data-ea-style="fixedfooter"></div>
   </body>
@@ -123,6 +132,25 @@ for (var i = 0; i < elements.length; i++) {
 } else {
   // Clipboard API is not supported
  console.log('Clipboard API is not supported by this browser, so nothing was pasted. If you see this message, use an up to date browser so you don\'t need to manually paste anymore!');
+}
+    function fileSwitch() {
+  
+var element = document.querySelector("#url");
+if (element.style.display === "none") {
+  document.getElementById('uStatus').innerHTML = "File host?"
+  element.style.display = "block";
+} else {
+  element.style.display = "none";
+
+}
+var file = document.querySelector("#file");
+if (file.style.display === "none") {
+  document.getElementById('uStatus').innerHTML = "Shorten URL?"
+  file.style.display = "block";
+} else {
+  file.style.display = "none";
+
+}
 }
 
   </script>
