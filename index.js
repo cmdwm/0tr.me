@@ -3,6 +3,7 @@ const app = express();
 const multer = require('multer');
 const cron = require('node-cron');
 const fs = require('fs');
+const stripe = require('stripe')(process.env.stripeApi);
 const path = require('path');
 const rateLimit = require('express-rate-limit')
 var randomstring = require("random-string-gen");
@@ -58,6 +59,70 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 } // limit file size to 10MB
 });
 
+app.get('/checkout/check', async function(req, res) {
+
+var slug = req.query.slug
+if(!db.get(slug)) {
+ res.send('OK')
+} else {
+res.send('NO')
+  
+} })
+
+app.get('/checkout/custom', async function(req, res) {
+  try {
+    if(!req.query.url && !req.query.slug) return res.send(`Error: No required query. <br>Just email hi@willm.xyz and I'll look into this/give you a refund if it was a payment issue.`)
+  if(db.get(req.query.slug)) return res.send(`<html><head><meta name="viewport" content="width=device-width,initial-scale=1"><meta charset="UTF-8"><title>checkout | otter</title><style>body{font-family:Arial,sans-serif}</style></head><body><h1><code>${req.query.slug}</code> is not availabe. <br>Why don't you try something else?</h1></body></html>`)
+  
+  const session = await stripe.checkout.sessions.create({
+  success_url: 'https://0tr.me/checkout/success?session_id={CHECKOUT_SESSION_ID}',
+  cancel_url: 'https://0tr.me',
+  line_items: [
+    {price: process.env.stripePriceId, quantity: 1},
+  ],
+  mode: 'payment',
+  allow_promotion_codes: true,
+    metadata: 
+      {
+        'slug': req.query.slug,
+        'url': req.query.url
+      }
+});
+
+ console.log(session)
+  res.redirect(session.url)
+   } catch(e) {
+    res.send('Error: ' + e + ` <br>Just email hi@willm.xyz and I'll look into this/give you a refund if it was a payment issue.`)
+  }
+})
+
+app.get('/checkout/success', async function(req, res) {
+  try {
+  const session = await stripe.checkout.sessions.retrieve(
+  req.query.session_id
+);
+
+var slug = session.metadata.slug
+var url = session.metadata.url  
+if(!db.get(slug)) {
+  db.set(slug, url)
+  res.send(`<html><head><meta name="viewport" content="width=device-width,initial-scale=1"><meta charset="UTF-8"><title>checkout | otter</title><style>body{font-family:Arial,sans-serif}</style></head><body><h1>Thanks for your support.<br><code>${slug}</code> now redirects to <code>${url}</h1></body></html>`)
+} else {
+  const refund = await stripe.refunds.create({
+  charge: 'ch_3KPeitGfJInaiKt01jnwZOnq',
+  amount: 40, // keep the 10 cents as a convience fee, user agrees to this at checkout
+  reason: 'Slug' + slug + ' not available, for some reason.'
+})
+
+  console.log(refund)
+  res.send(`<html><head><meta name="viewport" content="width=device-width,initial-scale=1"><meta charset="UTF-8"><title>checkout | otter</title><style>body{font-family:Arial,sans-serif}</style></head><body><h1>We're sorry.<br><code>${slug}</code> was claimed quickly while you were checking out. Your transaction was refunded.</h1></body></html>`)
+  
+}
+  } catch(e) {
+    res.send('Error: ' + e + ` <br>Just email hi@willm.xyz and I'll look into this/give you a refund if it was a payment issue.`)
+  }
+
+})
 
 app.get('/', (req, res) => {
   var contributors = db.get('contributors')

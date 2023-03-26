@@ -34,6 +34,8 @@
      </h4>
     <div class="no-mobile" id="uStatus" style="float: right !important; margin: 10px; font-size: 15px;">File host?</div>
 
+<!-- The Modal -->
+<%- include('/home/runner/otter-dot-me/views/partials/custom-slug.ejs') %>
     </div>
     <img style="width: 100%" src="https://cdn.glitch.global/65f2254a-8e40-4b88-aae8-bb42a288bd4d/wave.svg?v=1679271908333">
     <div style="background-color: #fb9a28; margin: 0; ">
@@ -45,8 +47,9 @@
 
         
      <form id="url" action="/submit" target="subFrame" style="zoom: 120%; padding: 20px;">
-      
-       <input paattern='^(ftp|http|https):\/\/[^ "]+$' id="urlF" required name="url" style="margin-bottom: 30px;" onclick="this.value = 'https://'; this.select()" placeholder="Give us your looooong URL" type="url">
+
+ <i style="color: black;" class="fa-brands fa-ethereum fa-flip"></i> Customize your short link <span class="no-mobile">for 50¢ ($0.50)</span> <span style="border: 1px solid black; padding: 1px; background-color: black; cursor: pointer; border-radius: 4px;" id="openPayMod">Get started</span>
+       <input pattern='^(ftp|http|https):\/\/[^ "]+$' id="urlF" required name="url" style="margin-bottom: 30px;" onclick="this.value = 'https://'; this.select()" placeholder="Give us your looooong URL" type="url">
        <iframe name="subFrame" style="width: 100%; height: 100px;"></iframe>
        <center>
          
@@ -152,7 +155,26 @@ if (file.style.display === "none") {
 
 }
 }
+var payMod = document.getElementById("payMod");
+var modBtn = document.getElementById("openPayMod");
+var closeBtn = document.getElementsByClassName("cancelBtn")[0];
 
+// When the user clicks the button, open the modal 
+modBtn.onclick = function() {
+  payMod.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+closeBtn.onclick = function() {
+  payMod.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    payMod.style.display = "none";
+  }
+}
   </script>
     
 </html>
