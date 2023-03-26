@@ -2,6 +2,9 @@
 <img src="https://user-images.githubusercontent.com/70700766/227785476-b52f0810-25e8-438f-a8d5-239ead0eb6e9.png" alt="0tr.me logo" width="100">
 <h1>0tr.me</h1>
 <p>URL shortener and file host compatible with ShareX & monetized with Stripe</p>
+<video width="320" height="240" controls>
+  <source src="https://github.com/cmdwm/0tr.me/raw/main/demo-video.mp4" type="video/mp4">
+</video>
 </div>
 
 ***
