@@ -1,4 +1,10 @@
-# 🦦 0tr.me URL shortener & file host
+<div align="center">
+<img src="https://user-images.githubusercontent.com/70700766/227785476-b52f0810-25e8-438f-a8d5-239ead0eb6e9.png" alt="0tr.me logo" width="100">
+<h1>0tr.me</h1>
+<p>URL shortener & file host</p>
+</div>
+
+***
 
 Hello world! [0tr.me](https://0tr.me) is a free, open source and lightweight URL shortener/file host. It has support for custom domains and decoding short links to expose the long URL behind it. 
 
@@ -7,10 +13,9 @@ While I don't plan on providing support for self-hosting, I can tell you some ba
 
 Just clone this GitHub repo, and download all the prerequisites. You can find them in `package.json`.  
 
-You can spin up a free host on Replit or Glitch.com.
+You can spin up a free host on [Replit ⠕](https://replit.com) or [🎏 Glitch](https://glitch.com).
 
----
-![ENV](https://img.shields.io/badge/.ENV-ECD53F.svg?style=for-the-badge&logo=dotenv&logoColor=black)
+## The .env
 
 The .env file has a few simple keys in them. You can rename these to suite your infrastructure better. Stripe information can be found at [dashboard.stripe.com](https://dashboard.stripe.com)
 
