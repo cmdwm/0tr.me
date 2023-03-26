@@ -40,8 +40,8 @@ request(options, function (error, response, body) {
   
   // Concatenate the login names of all contributors into a single string
   var contributorNames = contributors.map(function(contributor) {
-    return `<li><a href="${contributor.login}">` + contributor.login + `</a></li>`;
-  }).join('<br>');
+    return `<li style="margin: 0;"><a href="https://github.com/${contributor.login}">` + contributor.login + `</a></li>`;
+  }).join(' ');
   
   // Log the single string containing all contributor names
   db.set('contributors', `<ul>` + contributorNames + `</ul>`);
@@ -59,16 +59,6 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 } // limit file size to 10MB
 });
 
-app.get('/checkout/check', async function(req, res) {
-
-var slug = req.query.slug
-if(!db.get(slug)) {
- res.send('OK')
-} else {
-res.send('NO')
-  
-} })
-
 app.get('/checkout/custom', async function(req, res) {
   try {
     if(!req.query.url && !req.query.slug) return res.send(`Error: No required query. <br>Just email hi@willm.xyz and I'll look into this/give you a refund if it was a payment issue.`)
@@ -82,6 +72,8 @@ app.get('/checkout/custom', async function(req, res) {
   ],
   mode: 'payment',
   allow_promotion_codes: true,
+    currency: 'USD',
+    submit_type: 'donate',
     metadata: 
       {
         'slug': req.query.slug,
@@ -155,6 +147,8 @@ app.post('/upload', upload.single('file'), function(req, res) {
 
 app.get('/decode', function(req, res) {
   try {
+    if(!req.query.slug) return res.send(`You didn't enter a slug. Try again.`)
+    if(!db.get(req.query.slug)) return res.send(`The slug doesn't exist. Try again.`)
     res.send(db.get(req.query.slug))
   } catch {
     res.send("The slug doesn't exist. Try again.")

@@ -1,21 +1,38 @@
 <div align="center">
 <img src="https://user-images.githubusercontent.com/70700766/227785476-b52f0810-25e8-438f-a8d5-239ead0eb6e9.png" alt="0tr.me logo" width="100">
 <h1>0tr.me</h1>
-<p>URL shortener & file host</p>
+<p>URL shortener and file host compatible with ShareX & monetized with Stripe</p>
 </div>
 
 ***
+#### Current features + more
+- URL shortening with pre-generated slugs + custom slugs
+- Publicly decode slugs and show the long URL behind them
+- File hosting with directory clear every 12 hours to save resources
+- Support for custom domains via DNS `A` record
+- Monetized with [EthicalAds](https://ethicalads.io) & [Stripe](https://stripe.com) to support user payments
+- Custom ShareX uploader integration (see `./ShareX/`)
+- Custom GitHub analytics showing all contributors on home page
+***
+#### Upcoming features
+- [ ] Add section that shows all monetary contributors (via Stripe API)
+- [ ] Keep monetary contributor uploaded files forever (waive 12hr limit)
+- [ ] Better error handling, especially at the root
 
-Hello world! [0tr.me](https://0tr.me) is a free, open source and lightweight URL shortener/file host. It has support for custom domains and decoding short links to expose the long URL behind it. 
+#### Currently working on
+- [x] Add more ways to monetize the site without asking for static donations
+- [x] Grow the userbase without spending tons on Google Ads, etc
 
-## How to self-host it
+See something on this list that you can add? Make a pull request and you'll be listed on our homepage forever!
+
+## Self Hosting
 While I don't plan on providing support for self-hosting, I can tell you some basic things to get you started. This project is programmed in Node (obviously), with Express.js to serve content and qjson-db to store slugs. 
 
 Just clone this GitHub repo, and download all the prerequisites. You can find them in `package.json`.  
 
 You can spin up a free host on [Replit ⠕](https://replit.com) or [🎏 Glitch](https://glitch.com).
 
-## The .env
+### The .env file
 
 The .env file has a few simple keys in them. You can rename these to suite your infrastructure better. Stripe information can be found at [dashboard.stripe.com](https://dashboard.stripe.com)
 

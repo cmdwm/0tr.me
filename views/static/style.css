@@ -76,8 +76,9 @@ body {
   }
 }
  details {
+   padding-bottom: 0 !important;
 	 margin: 1rem;
-	 padding: 0 1rem;
+	 padding: 1rem 1rem;
 	 width: 35em;
 	 max-width: calc(100% - 2rem);
 	 position: relative;
@@ -529,4 +530,17 @@ input:checked + .slider:before {
 .cancelBtn:hover {
   background-color: darkred;
   border-color: darkred;
+}
+.fa-gradient {
+bbackground: rgb(238,174,202);
+background: -moz-radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+background: -webkit-radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#eeaeca",endColorstr="#94bbe9",GradientType=1);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+.fa-stroke {
+ -webkit-text-stroke: 0.3px #000;
+ -webkit-text-fill-color: transparent;
 }

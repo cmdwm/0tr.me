@@ -1,0 +1,13 @@
+{
+  "Version": "1.0.0",
+  "Name": "0tr.me image host",
+  "DestinationType": "ImageUploader",
+  "RequestMethod": "POST",
+  "RequestURL": "https://0tr.me/upload",
+  "Headers": {
+    "Authorization": "0tr-sharex-me"
+  },
+  "Body": "MultipartFormData",
+  "FileFormName": "file",
+  "URL": "$responseurl$"
+}

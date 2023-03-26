@@ -15,24 +15,26 @@
   </head>
   <body>
  <header>
-  <img alt="otter" src="https://cdn.glitch.global/65f2254a-8e40-4b88-aae8-bb42a288bd4d/Untitled%20design-16.png?v=1679271176829">
-  <div style="float: right;">
-  <span style="text-transform: uppercase">0TR.ME</span>
-  </div>
+   
+  <img style="float: left;" alt="otter" src="https://cdn.glitch.global/65f2254a-8e40-4b88-aae8-bb42a288bd4d/Untitled%20design-16.png?v=1679271176829">
+
+    <label title="Toggle file host/shorten URL" id="swiCl" class="switch" style="float: right !important; margin: 10px;">
+  <input onchange="fileSwitch()" id="check" type="checkbox">
+  <span class="slider round"></span>
+</label>
+   <br><br>
+    <span class="no-mobile" id="uStatus" style="font-size: 15px;"><i class="fa-solid fa-link"></i></span>
 </header>
 
     <div id="one" class="content">
       
  <center>
      <h4 style="margin: 0; text-transform: uppercase;">
-       <label title="Toggle file host/shorten URL" id="swiCl" class="switch" style="float: right !important; margin: 10px;">
-  <input onchange="fileSwitch()" id="check" type="checkbox">
-  <span class="slider round"></span>
-</label>
+      
       this domain was expensive<span class="no-mobile">, so use it plz</span>.<br>
        follow me<span class="no-mobile"> on twitter</span> <a style="color: white;" href="https://twitter.com/willmccrudden">@willmccrudden</a><span class="no-mobile">.</span>
      </h4>
-    <div class="no-mobile" id="uStatus" style="float: right !important; margin: 10px; font-size: 15px;">File host?</div>
+   
 
 <!-- The Modal -->
 <%- include('/home/runner/otter-dot-me/views/partials/custom-slug.ejs') %>
@@ -48,7 +50,7 @@
         
      <form id="url" action="/submit" target="subFrame" style="zoom: 120%; padding: 20px;">
 
- <i style="color: black;" class="fa-brands fa-ethereum"></i> Customize your short link <span class="no-mobile">for 50¢ ($0.50)</span> <span style="border: 1px solid black; padding: 1px; background-color: black; cursor: pointer; border-radius: 4px;" id="openPayMod">Get started</span>
+ <i style="font-size: 20px;" class="fa-bounce fa-stroke fa-gradient fa-brands fa-ethereum"></i> Customize your short link <span class="no-mobile">for 50¢ ($0.50)</span> <span class="buyBtnx" style="border: 1px solid black; padding: 1px; background-color: black; cursor: pointer; border-radius: 4px;" id="openPayMod"><span class="no-mobile">Get started </span>→</span>
        <input pattern='^(ftp|http|https):\/\/[^ "]+$' id="urlF" required name="url" style="margin-bottom: 30px;" onclick="this.value = 'https://'; this.select()" placeholder="Give us your looooong URL" type="url">
        <iframe name="subFrame" style="width: 100%; height: 100px;"></iframe>
        <center>
@@ -91,10 +93,9 @@
     </details>
 
     <details><summary class="gradient1">Special thanks to...</summary>
-    These awesome people contributed to <a href="https://github.com/cmdwm/0tr.me">0tr.me's open source development</a>. You can also <a href="https://bmc.xyz/willymuffin">buy me a coffee</a> to support 0tr.me.
+    These awesome people contributed to <a href="https://github.com/cmdwm/0tr.me">0tr.me's <span class="no-mobile">open source</span> development</a>.<span class="no-mobile"> You can also <a href="https://bmc.xyz/willymuffin">buy me a coffee</a> to support 0tr.me.</span>
       <%- contributors %>
-      
-        Find a bug or want to add a feature? <a href="https://github.com/cmdwm/0tr.me/pulls">Make a pull request</a> and you'll see your name on this list!
+
     </details>
 
     <center style="margin-bottom: 80px;">Made with <i style="color: red;" class="fa-solid fa-heart"></i> by <a href="https://willm.xyz" style="text-decoration: none; color: white;"><u>Will M</u></a> <br><i>&copy; 2023 McCrudden Innovations LP</i></center>
@@ -140,7 +141,7 @@ for (var i = 0; i < elements.length; i++) {
   
 var element = document.querySelector("#url");
 if (element.style.display === "none") {
-  document.getElementById('uStatus').innerHTML = "File host?"
+  document.getElementById('uStatus').innerHTML = `<i class="fa-solid fa-link"></i>`
   element.style.display = "block";
 } else {
   element.style.display = "none";
@@ -148,7 +149,7 @@ if (element.style.display === "none") {
 }
 var file = document.querySelector("#file");
 if (file.style.display === "none") {
-  document.getElementById('uStatus').innerHTML = "Shorten URL?"
+  document.getElementById('uStatus').innerHTML = `<i class="fa-solid fa-file-arrow-up"></i>`
   file.style.display = "block";
 } else {
   file.style.display = "none";
@@ -162,6 +163,7 @@ var closeBtn = document.getElementsByClassName("cancelBtn")[0];
 // When the user clicks the button, open the modal 
 modBtn.onclick = function() {
   payMod.style.display = "block";
+  document.getElementById('payLongVal').value = document.getElementById('urlF').value
 }
 
 // When the user clicks on <span> (x), close the modal
@@ -171,7 +173,7 @@ closeBtn.onclick = function() {
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  if (event.target == modal) {
+  if (event.target == payMod) {
     payMod.style.display = "none";
   }
 }
