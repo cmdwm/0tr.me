@@ -65,8 +65,6 @@ request('https://ghs.vercel.app/sponsors/cmdwm', (error, response, body) => {
 });
 /* SPONSOR, PULL REQUEST END */
 
-
-
 const storage = multer.diskStorage({
   destination: 'uploads/',
   filename: function (req, file, cb) {
@@ -75,10 +73,19 @@ const storage = multer.diskStorage({
     cb(null, newName);
   }
 });
+
 const upload = multer({
   storage,
-  limits: { fileSize: 10 * 1024 * 1024 } // limit file size to 10MB
+  limits: { fileSize: 10 * 1024 * 1024 }, // limit file size to 10MB
+  fileFilter: function (req, file, cb) {
+    if (file.mimetype !== 'image/svg+xml') {
+      cb(null, true); // accept the file
+    } else {
+      cb(new Error('SVG files are not allowed.')); // reject the file
+    }
+  }
 });
+
 
 app.get('/checkout/custom', async function(req, res) {
   try {
@@ -117,9 +124,11 @@ app.get('/checkout/success', async function(req, res) {
 
 var slug = session.metadata.slug
 var url = session.metadata.url  
-if(!db.get(slug)) {
+if(!db.get(slug) && session.payment_status !== 'unpaid') {
   db.set(slug, url)
   res.send(`<html><head><meta name="viewport" content="width=device-width,initial-scale=1"><meta charset="UTF-8"><title>checkout | otter</title><style>body{font-family:Arial,sans-serif}</style></head><body><h1>Thanks for your support.<br><code>${slug}</code> now redirects to <code>${url}</h1></body></html>`)
+} else if(session.payment_status == 'unpaid') {
+  res.send(`There was an issue processing your payment. If you were charged, it will drop off your bank statement soon. `)
 } else {
   const refund = await stripe.refunds.create({
   id: session.payment_intent,

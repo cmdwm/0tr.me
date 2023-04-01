@@ -4,7 +4,7 @@
         </center>
 <div onclick="document.getElementById('imgSh').style.display = 'block'" class="upload-btn-wrapper">
   <button class="btn" style="margin-bottom: 10px;">Choose an image</button>
-  <input required onchange="this.form.submit()" accept="image/*" type="file" name="file">
+  <input required oninput="this.form.submit()"  accept=".png,.jpg,.jpeg,.gif" type="file" name="file">
 </div>
           <center> <i>Images are deleted every 12 hours<span class="no-mobile">  to save resources and protect your privacy.</span></i></center>
 </form>
