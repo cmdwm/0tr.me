@@ -24,7 +24,7 @@ const apiLimiter = rateLimit({
 // Apply the rate limiting middleware to API calls only
 app.use('/submit', apiLimiter)
 app.use('/upload', apiLimiter)
-
+/* SPONSOR, PULL REQUEST START */
 var options = {
   'method': 'GET',
   'url': 'https://api.github.com/repos/cmdwm/0tr.me/contributors',
@@ -40,12 +40,33 @@ request(options, function (error, response, body) {
   
   // Concatenate the login names of all contributors into a single string
   var contributorNames = contributors.map(function(contributor) {
-    return `<li style="margin: 0;"><a href="https://github.com/${contributor.login}">` + contributor.login + `</a></li>`;
+    return `<li style="margin: 0; color: black !important;"><a href="https://github.com/${contributor.login}">` + contributor.login + `</a></li>`;
   }).join(' ');
   
   // Log the single string containing all contributor names
   db.set('contributors', `<ul>` + contributorNames + `</ul>`);
 });
+
+request('https://ghs.vercel.app/sponsors/cmdwm', (error, response, body) => {
+  if (error) {
+    console.log(error);
+  } else {
+    try {
+ const data = JSON.parse(body);
+    const sponsorNames = data.sponsors.map(sponsor => `<li style="margin: 0;"><a href="https://github.com/${sponsor.handle}">` + sponsor.handle + `</a></li>`);
+    const fullText = '<ul>' + sponsorNames.join(' ') + '</ul>';
+    db.set('ghSponsors', fullText)
+    } catch(e) {
+      console.log(e)
+      db.set('ghSponsors', `<ul><li style="margin: 0; color: black !important">No sponsors yet 😢</li></ul>`)
+      // There was an error fetching sponsors. We're working to resolve this.
+    }
+  }
+});
+/* SPONSOR, PULL REQUEST END */
+
+
+
 const storage = multer.diskStorage({
   destination: 'uploads/',
   filename: function (req, file, cb) {
@@ -101,8 +122,8 @@ if(!db.get(slug)) {
   res.send(`<html><head><meta name="viewport" content="width=device-width,initial-scale=1"><meta charset="UTF-8"><title>checkout | otter</title><style>body{font-family:Arial,sans-serif}</style></head><body><h1>Thanks for your support.<br><code>${slug}</code> now redirects to <code>${url}</h1></body></html>`)
 } else {
   const refund = await stripe.refunds.create({
-  charge: 'ch_3KPeitGfJInaiKt01jnwZOnq',
-  amount: 40, // keep the 10 cents as a convience fee, user agrees to this at checkout
+  id: session.payment_intent,
+  amount: 40, // keep 10c for fee, user agrees to this at checkout
   reason: 'Slug' + slug + ' not available, for some reason.'
 })
 
@@ -118,8 +139,10 @@ if(!db.get(slug)) {
 
 app.get('/', (req, res) => {
   var contributors = db.get('contributors')
+  var sponsors = db.get('ghSponsors')
     res.render('index', {
-     'contributors': contributors
+     'contributors': contributors,
+    'sponsors': sponsors
     });
 });
 
@@ -130,7 +153,8 @@ app.get('/i/:file', function(req, res) {
   fs.access(filePath, fs.constants.F_OK, function(err) {
     if (err) {
       console.error(err);
-      res.redirect('/');
+      //res.redirect('/');
+      res.sendFile(__dirname + '/img-deleted.png')
     } else {
       res.sendFile(filePath);
     }
@@ -175,7 +199,7 @@ db.set(url, slug) //backward compatibility
 })
 
 app.get('/undefined', function(req, res) {
-  res.redirect('/')
+ res.sendFile(__dirname + '/url-removed.png')
 })
 
 app.get('/:id', function(req, res) {
@@ -186,7 +210,7 @@ app.get('/:id', function(req, res) {
   }
 })
 
-// Schedule cron job to clear uploads directory every minute
+// Schedule cron job to clear uploads directory every 12 hours
 cron.schedule('0 */12 * * *', function() {
   // Delete contents of uploads directory
   fs.readdir(__dirname + '/uploads', function(err, files) {

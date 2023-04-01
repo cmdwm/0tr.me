@@ -15,15 +15,16 @@ See demo video: https://github.com/cmdwm/0tr.me/raw/main/demo-video.mp4
 - Monetized with [EthicalAds](https://ethicalads.io) & [Stripe](https://stripe.com) to support user payments
 - Custom ShareX uploader integration (see `./ShareX/`)
 - Custom GitHub analytics showing all contributors on home page
+- Includes section that shows all monetary contributors (via GH Sponsors)
 ***
 #### Upcoming features
-- [ ] Add section that shows all monetary contributors (via Stripe API)
+- [ ] Sanitize SVG formats to strip `<script>` tags
 - [ ] Keep monetary contributor uploaded files forever (waive 12hr limit)
-- [ ] Better error handling, especially at the root
 
 #### Currently working on
 - [x] Add more ways to monetize the site without asking for static donations
 - [x] Grow the userbase without spending tons on Google Ads, etc
+- [x] Better error handling, especially at the root
 
 See something on this list that you can add? Make a pull request and you'll be listed on our homepage forever!
 

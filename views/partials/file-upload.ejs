@@ -1,8 +1,10 @@
          <form enctype="multipart/form-data" method="POST" action="/upload" id="file" style="display: none;"> 
-        <center><h5>Host Your Images (max 10MB)</h5></center>
-<div class="upload-btn-wrapper">
+        <center><h5>Host Your Images (max 10MB)</h5>
+       <span style="display: none;" id="imgSh">Your image will upload automatically after selected. Please be sure you select the correct file!</span>
+        </center>
+<div onclick="document.getElementById('imgSh').style.display = 'block'" class="upload-btn-wrapper">
   <button class="btn" style="margin-bottom: 10px;">Choose an image</button>
   <input required onchange="this.form.submit()" accept="image/*" type="file" name="file">
 </div>
-          <center> <i>Images are deleted every 12 hours<span class="no-mobile">  to save resources and protect your privacy. You can always reupload your file.</span></i></center>
+          <center> <i>Images are deleted every 12 hours<span class="no-mobile">  to save resources and protect your privacy.</span></i></center>
 </form>

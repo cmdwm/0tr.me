@@ -48,11 +48,11 @@
 <%- include('/home/runner/otter-dot-me/views/partials/file-upload.ejs') %>
 
         
-     <form id="url" action="/submit" target="subFrame" style="zoom: 120%; padding: 20px;">
+     <form onsubmit="document.getElementById('subFrame').style.display = 'block'" id="url" action="/submit" target="subFrame" style="zoom: 120%; padding: 20px;">
 
  <i style="font-size: 20px;" class="fa-bounce fa-stroke fa-gradient fa-brands fa-ethereum"></i> Customize your short link <span class="no-mobile">for 50¢ ($0.50)</span> <span class="buyBtnx" style="border: 1px solid black; padding: 1px; background-color: black; cursor: pointer; border-radius: 4px;" id="openPayMod"><span class="no-mobile">Get started </span>→</span>
        <input pattern='^(ftp|http|https):\/\/[^ "]+$' id="urlF" required name="url" style="margin-bottom: 30px;" onclick="this.value = 'https://'; this.select()" placeholder="Give us your looooong URL" type="url">
-       <iframe name="subFrame" style="width: 100%; height: 100px;"></iframe>
+       <iframe name="subFrame" id="subFrame" style="width: 100%; height: 100px; display: none;"></iframe>
        <center>
          
       <button style="cursor: pointer; width: 100%;">make it short
@@ -93,8 +93,21 @@
     </details>
 
     <details><summary class="gradient1">Special thanks to...</summary>
-    These awesome people contributed to <a href="https://github.com/cmdwm/0tr.me">0tr.me's <span class="no-mobile">open source</span> development</a>.<span class="no-mobile"> You can also <a href="https://bmc.xyz/willymuffin">buy me a coffee</a> to support 0tr.me.</span>
-      <%- contributors %>
+ These awesome people contributed to <a href="https://github.com/cmdwm/0tr.me">0tr.me's open source development</a>. 
+
+
+<table>
+<tbody>
+<tr>
+<td> <h5 style="text-transform: uppercase; font-weight: 600; color: black !important; letter-spacing: 5px; margin-bottom: 0 !important; margin-top:" 5px;>Sponsors</h5> </td>
+<td> <h5 style="text-transform: uppercase; font-weight: 600; color: black !important; letter-spacing: 5px; margin-bottom: 0 !important; margin-top:" 5px;>Developers</h5> </td>
+</tr>
+<tr>
+<td><%- sponsors %></td>
+<td><%- contributors %></td>
+</tr>
+</tbody>
+</table>
 
     </details>
 
