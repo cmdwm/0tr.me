@@ -78,13 +78,15 @@ const upload = multer({
   storage,
   limits: { fileSize: 10 * 1024 * 1024 }, // limit file size to 10MB
   fileFilter: function (req, file, cb) {
-    if (file.mimetype !== 'image/svg+xml') {
+    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif']; // add any additional allowed mime types
+    if (allowedMimeTypes.includes(file.mimetype)) {
       cb(null, true); // accept the file
     } else {
-      cb(new Error('SVG files are not allowed.')); // reject the file
+      cb(new Error('Only image files are allowed.')); // reject the file
     }
   }
 });
+
 
 
 app.get('/checkout/custom', async function(req, res) {
@@ -172,6 +174,8 @@ app.get('/i/:file', function(req, res) {
 
 app.post('/upload', upload.single('file'), function(req, res) {
   if(!req.file) return res.send('No file/valid image type given. Try again.')
+  var m = req.file.mimetype
+ // if(!m || m !== 'image/png' || m !== 'image/jpg' || m !== 'image/jpg' || m !== 'image/jpeg' || m !== 'image/gif') return
    const { filename, mimetype, path } = req.file;
   
   // Return file information in response
