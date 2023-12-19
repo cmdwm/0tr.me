@@ -1,9 +1,12 @@
 <div align="center">
 <img src="https://user-images.githubusercontent.com/70700766/227785476-b52f0810-25e8-438f-a8d5-239ead0eb6e9.png" alt="0tr.me logo" width="100">
 <h1>0tr.me</h1>
-<p>URL shortener and file host compatible with ShareX & monetized with Stripe</p>
+<p>Custom domain URL shortener and file host compatible with ShareX & monetized with Stripe</p>
   
-See demo video: https://github.com/cmdwm/0tr.me/raw/main/demo-video.mp4
+
+https://github.com/cmdwm/0tr.me/assets/35583237/ea26d9e9-7a00-4ae5-bb4f-6a61453c098d
+
+
 </div>
 
 ***
