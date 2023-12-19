@@ -23,6 +23,7 @@ const apiLimiter = rateLimit({
 
 // Apply the rate limiting middleware to API calls only
 app.use('/submit', apiLimiter)
+app.use('/email-submit', apiLimiter)
 app.use('/upload', apiLimiter)
 /* SPONSOR, PULL REQUEST START */
 var options = {
@@ -40,7 +41,7 @@ request(options, function (error, response, body) {
   
   // Concatenate the login names of all contributors into a single string
   var contributorNames = contributors.map(function(contributor) {
-    return `<li style="margin: 0; color: black !important;"><a href="https://github.com/${contributor.login}">` + contributor.login + `</a></li>`;
+    return `<li style="margin: 0; color: black !important;"><a href="https://github.com/${contributor.login}">` + contributor.login.replace('cmdwm', 'cmdwm 🛠️') + `</a></li>`;
   }).join(' ');
   
   // Log the single string containing all contributor names
@@ -58,7 +59,7 @@ request('https://ghs.vercel.app/sponsors/cmdwm', (error, response, body) => {
     db.set('ghSponsors', fullText)
     } catch(e) {
       console.log(e)
-      db.set('ghSponsors', `<ul><li style="margin: 0; color: black !important">No sponsors yet 😢</li></ul>`)
+      db.set('ghSponsors', `<ul><li style="margin: 0; color: black !important">No sponsors yet 😢<br><a href=""</li></ul>`)
       // There was an error fetching sponsors. We're working to resolve this.
     }
   }
@@ -126,14 +127,14 @@ app.get('/checkout/success', async function(req, res) {
 
 var slug = session.metadata.slug
 var url = session.metadata.url  
-if(!db.get(slug) && session.payment_status !== 'unpaid') {
+if(!db.get(slug) && session.payment_status == 'paid') {
   db.set(slug, url)
   res.send(`<html><head><meta name="viewport" content="width=device-width,initial-scale=1"><meta charset="UTF-8"><title>checkout | otter</title><style>body{font-family:Arial,sans-serif}</style></head><body><h1>Thanks for your support.<br><code>${slug}</code> now redirects to <code>${url}</h1></body></html>`)
 } else if(session.payment_status == 'unpaid') {
   res.send(`There was an issue processing your payment. If you were charged, it will drop off your bank statement soon. `)
 } else {
   const refund = await stripe.refunds.create({
-  id: session.payment_intent,
+  payment_intent: session.payment_intent,
   amount: 40, // keep 10c for fee, user agrees to this at checkout
   reason: 'Slug' + slug + ' not available, for some reason.'
 })
@@ -208,6 +209,22 @@ db.set(url, slug) //backward compatibility
     })
   } catch {
     res.send('wah')
+  }
+})
+
+app.get('/submit', function(req, res) {
+  var slug = randomstring(7);
+  var url = req.query.url
+
+  if(!url || url.includes('0tr.me/') || url.includes('is-rocket.science/')) return res.send(`Please try again by sending a long URL in the subject line of your E-mail.`)
+  
+  try {
+    if(db.get(url)) return res.send(`https://0tr.me/${db.get(url)}`)
+db.set(url, slug) //backward compatibility
+  db.set(slug, url)
+   res.send(`${url} is now ${slug}`)
+  } catch {
+   res.send(`There was an issue.`)
   }
 })
 

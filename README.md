@@ -20,6 +20,7 @@ See demo video: https://github.com/cmdwm/0tr.me/raw/main/demo-video.mp4
 #### Upcoming features
 - [ ] Sanitize SVG formats to strip `<script>` tags
 - [ ] Keep monetary contributor uploaded files forever (waive 12hr limit)
+- [ ] Send email to shorten URL via mailhook.app webhook integration
 
 #### Currently working on
 - [x] Add more ways to monetize the site without asking for static donations
