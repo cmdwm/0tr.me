@@ -49,14 +49,26 @@
 <%- include('/home/runner/otter-dot-me/views/partials/file-upload.ejs') %>
 
         
-     <form onsubmit="document.getElementById('subFrame').style.display = 'block'" id="url" action="/submit" target="subFrame" style="zoom: 120%; padding: 20px;">
+     <form onsubmit="document.getElementById('subFrame').style.display = 'block'" id="url" action="/submit" target="subFrame" style="zoom: 120%; padding: 20px; margin-top: -10px;">
 
  <i style="font-size: 20px;" class="fa-bounce fa-stroke fa-gradient fa-brands fa-ethereum"></i> Customize your short link <span class="no-mobile">for 50¢ ($0.50)</span> <span class="buyBtnx" style="border: 1px solid black; padding: 1px; background-color: black; cursor: pointer; border-radius: 4px;" id="openPayMod"><span class="no-mobile">Get started </span>→</span>
-       <input pattern='^(ftp|http|https):\/\/[^ "]+$' id="urlF" required name="url" style="margin-bottom: 30px;" onclick="this.value = 'https://'; this.select()" placeholder="Give us your looooong URL" type="url">
+       <input pattern='^(ftp|http|https):\/\/[^ "]+$' id="urlF" required name="url" style="margin-bottom: 10px;" onclick="this.value = 'https://'; this.select()" placeholder="Give us your looooong URL" type="url">
+
+       <style>
+         .holds-the-iframe {
+            background:url(https://i.imgur.com/cw69iOa.gif) center center no-repeat;
+           background-size: 50px;
+          }
+       </style>
+       <div class="holds-the-iframe">
+
+       
+       
        <iframe name="subFrame" id="subFrame" style="width: 100%; height: 100px; display: none;"></iframe>
+       </div>
        <center>
          
-      <button style="cursor: pointer; width: 100%;">make it short
+      <button style="cursor: pointer; width: 100%; font-family: 'Anton', sans-serif; letter-spacing: 3px;">MAKE IT SHORT
   <div class="star-1">
     <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><defs></defs><g id="Layer_x0020_1"><metadata id="CorelCorpID_0Corel-Layer"></metadata><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></g></svg>
   </div>
@@ -78,6 +90,7 @@
 </button>
           <!-- <div id="otter" data-ea-publisher="maileeco" data-ea-type="text"></div>-->
        </center>
+       <span style="font-size: 10px; color: grey; opacity: 0.4; cursor: pointer" onclick="document.getElementById('urlF').value = 'http://aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com/#AAaAaaaAAAaAaaAAAaAaaAAAaaaaAAAaaAAaAAAaAaaAaAAAAaAaAAAAaAAaaaaAAAaAaaAAAaaAaaAaAAAaAAaAAaAAAaaAaA'">TRY IT OUT WITH THE LONGEST URL</span>
      </form>
       </div>
       

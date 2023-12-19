@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Kanit&display=swap');
+
 html {
   scroll-behavior: smooth;
 }
@@ -21,6 +22,7 @@ body {
         display: flex;
         align-items: center;
         padding: 10px;
+        border-radius: 40px;
       }
       header img {
         margin-left: 0px;
