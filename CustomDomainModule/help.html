@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.hero-image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://cdn.glitch.global/117f23c9-625a-4516-90bb-6113a0c01d08/pika-1702953595358-1x.png?v=1702953638028");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+/* button desygn */
+button {
+  position: relative;
+  width: 250px;
+  height: 60px;
+  background: #184eec; /* background color */
+  color: #fff; /* Font color */
+  margin: 0 auto;
+  overflow: hidden;
+  font-size: 20px;
+  text-align: center;
+  border: none;
+  transition: color .3s;
+  cursor: pointer;
+  z-index: 1;
+  border-radius: 1px;
+  border: 1px solid white;
+  
+}
+
+button:after {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #327aff; /* background color on hover */
+  content: "";
+  z-index: -2;
+  transition: transform .3s;
+}
+
+button:hover::after {
+  transform: translateY(-100%);
+  transition: transform .3s;
+}
+
+button:focus, button:active,  button:visited{
+  outline: none;
+}
+
+</style>
+</head>
+<body>
+
+<div class="hero-image">
+  <div class="hero-text" style="width: 80% !important;">
+    <h1 style="font-size:50px; margin-bottom: 0px;">Need help?</h1>
+    <p style="font-size: 18px">Add <u>dns.0tr.me</u> as a CNAME record to your site to get this running.<br>This site is powered by 0tr.me — a free URL shortener & image host.</p>
+    <a href="https://0tr.me"><button>Learn more →</button></a>
+  </div>
+</div>
+
+</body>
+</html>
