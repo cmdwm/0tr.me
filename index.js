@@ -174,13 +174,21 @@ app.get('/i/:file', function(req, res) {
 });
 
 app.post('/upload', upload.single('file'), function(req, res) {
+let shareUrl
+if(!req.query.xUrl) {
+  shareUrl = 'https://0tr.me'
+} else {
+  shareUrl = 'https://' + req.query.xUrl
+}
+
+  
   if(!req.file) return res.send('No file/valid image type given. Try again.')
   var m = req.file.mimetype
  // if(!m || m !== 'image/png' || m !== 'image/jpg' || m !== 'image/jpg' || m !== 'image/jpeg' || m !== 'image/gif') return
    const { filename, mimetype, path } = req.file;
   
   // Return file information in response
-  res.redirect(`/i/${filename}`)
+  res.redirect(shareUrl + `/i/${filename}`)
 });
 
 app.get('/decode', function(req, res) {
@@ -193,19 +201,30 @@ app.get('/decode', function(req, res) {
   }
 })
 
+
+
+app.get('/qr', function(req, res) {
+  var id = req.query.id;
+   request('https://api.qrserver.com/v1/create-qr-code/?size=150x1500&data=https://0tr.me/' + id).pipe(res);
+
+})
+
 app.get('/submit', function(req, res) {
   var slug = randomstring(7);
   var url = req.query.url
-
+  var views = db.get(slug.views)
+console.log(db.get(slug.views))
   if(!url) return res.send('No Long URL specified. Try again.')
 if(url.includes('0tr.me/') || url.includes('is-rocket.science/')) return res.send('You can\'t shorten an already-short URL! Try again.')
   try {
-    if(db.get(url)) return res.render('submit', { slug: db.get(url), url: url })
+    if(db.get(url)) return res.render('submit', { slug: db.get(url), url: url, views: views })
 db.set(url, slug) //backward compatibility
   db.set(slug, url)
+  db.set(slug.views, 0)
     res.render('submit', {
       slug: slug,
-      url: url
+      url: url,
+      views: views
     })
   } catch {
     res.send('wah')
@@ -234,6 +253,8 @@ app.get('/undefined', function(req, res) {
 
 app.get('/:id', function(req, res) {
   try {
+    console.log(db.get(req.params.id.views))
+    db.set(req.params.id.views, db.get(req.params.id.views) + 1)
     res.redirect(db.get(req.params.id))
   } catch {
     res.send('Short URL was not found.')

@@ -12,6 +12,7 @@ https://github.com/cmdwm/0tr.me/assets/35583237/ea26d9e9-7a00-4ae5-bb4f-6a61453c
 ***
 #### Current features + more
 - URL shortening with pre-generated slugs + custom slugs
+- URL Analytics such as views and generate QR codes
 - Publicly decode slugs and show the long URL behind them
 - File hosting with directory clear every 12 hours to save resources
 - Support for custom domains via DNS `CNAME` record

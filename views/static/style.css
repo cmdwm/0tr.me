@@ -68,6 +68,9 @@ body {
 
 /* Styles for desktop devices */
 @media (min-width: 768px) {
+  .no-pc {
+    display: none
+  }
   .button {
     width: 75%;
   }
