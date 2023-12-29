@@ -2,7 +2,7 @@
 <img src="https://user-images.githubusercontent.com/70700766/227785476-b52f0810-25e8-438f-a8d5-239ead0eb6e9.png" alt="0tr.me logo" width="100">
 <h1>0tr.me</h1>
 <p>Custom domain URL shortener and file host compatible with ShareX & monetized with Stripe</p>
-  
+<blockquote>See our <a href="https://building.0tr.me">changelog</a> for product updates</blockquote>
 
 https://github.com/cmdwm/0tr.me/assets/35583237/ea26d9e9-7a00-4ae5-bb4f-6a61453c098d
 
@@ -11,8 +11,10 @@ https://github.com/cmdwm/0tr.me/assets/35583237/ea26d9e9-7a00-4ae5-bb4f-6a61453c
 
 ***
 #### Current features + more
+- Progressive Web App (PWA) on mobile devices + Windows & Mac
+- [Status Page](https://status.0tr.me) and [Changelog Site](https://building.0tr.me)
 - URL shortening with pre-generated slugs + custom slugs
-- URL Analytics such as views and generate QR codes
+- URL Analytics such as views and generate Pretty QR codes
 - Publicly decode slugs and show the long URL behind them
 - File hosting with directory clear every 12 hours to save resources
 - Support for custom domains via DNS `CNAME` record
@@ -22,14 +24,12 @@ https://github.com/cmdwm/0tr.me/assets/35583237/ea26d9e9-7a00-4ae5-bb4f-6a61453c
 - Includes section that shows all monetary contributors (via GH Sponsors)
 ***
 #### Upcoming features
-- [ ] Sanitize SVG formats to strip `<script>` tags
-- [ ] Keep monetary contributor uploaded files forever (waive 12hr limit)
-- [ ] ~~Send email to shorten URL via mailhook.app webhook integration~~
+Hmm, quite empty. Suggest some on our new [Suggestions](https://building.0tr.me) page!
 
 #### Currently working on
 - [x] Add more ways to monetize the site without asking for static donations
-- [x] Grow the userbase without spending tons on Google Ads, etc
-- [x] Better error handling, especially at the root
+- [x] [ ] Keep monetary contributor uploaded files forever (waive 12hr limit)
+- [x] Sanitize SVG formats to strip `<script>` tags
 
 See something on this list that you can add? Make a pull request and you'll be listed on our homepage forever!
 

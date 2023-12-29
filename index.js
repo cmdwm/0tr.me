@@ -77,7 +77,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
-  limits: { fileSize: 10 * 1024 * 1024 }, // limit file size to 10MB
+  limits: { fileSize: 25 * 1024 * 1024 }, // limit file size to 25MB
   fileFilter: function (req, file, cb) {
     const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif']; // add any additional allowed mime types
     if (allowedMimeTypes.includes(file.mimetype)) {
@@ -88,7 +88,9 @@ const upload = multer({
   }
 });
 
-
+app.get('/favicon.ico', function(req, res) {
+  res.sendFile(__dirname + '/0tr.png')
+})
 
 app.get('/checkout/custom', async function(req, res) {
   try {
@@ -205,7 +207,13 @@ app.get('/decode', function(req, res) {
 
 app.get('/qr', function(req, res) {
   var id = req.query.id;
-   request('https://api.qrserver.com/v1/create-qr-code/?size=150x1500&data=https://0tr.me/' + id).pipe(res);
+  res.setHeader('Content-Disposition', `attachment; filename="qr-${id}.png"`);
+
+
+//  res.redirect('https://quickchart.io/qr?text=https%3A%2F%2F0tr.me%2F${id}&light=5aa6c4&dark=ffffff&margin=0&size=200¢erImageUrl=https%3A%2F%2Fi.imgur.com%2Fcjub6gt.png')
+request(`https://quickchart.io/qr?text=https%3A%2F%2F0tr.me%2F${id}&size=200&centerImageUrl=https%3A%2F%2Fi.imgur.com%2Fcjub6gt.png`).pipe(res)
+  
+  //or we could pipe it with the non-pretty request('https://api.qrserver.com/v1/create-qr-code/?size=150x1500&data=https://0tr.me/' + id).pipe(res);
 
 })
 
@@ -213,9 +221,12 @@ app.get('/submit', function(req, res) {
   var slug = randomstring(7);
   var url = req.query.url
   var views = db.get(slug.views)
-console.log(db.get(slug.views))
   if(!url) return res.send('No Long URL specified. Try again.')
-if(url.includes('0tr.me/') || url.includes('is-rocket.science/')) return res.send('You can\'t shorten an already-short URL! Try again.')
+if(url.includes('0tr.me/')) return res.render('submit', {
+  slug: url.replace('0tr.me/', '').replace('http://', '').replace('https://', ''),
+  url: url,
+  views: db.get(slug.views)
+})
   try {
     if(db.get(url)) return res.render('submit', { slug: db.get(url), url: url, views: views })
 db.set(url, slug) //backward compatibility
@@ -253,7 +264,6 @@ app.get('/undefined', function(req, res) {
 
 app.get('/:id', function(req, res) {
   try {
-    console.log(db.get(req.params.id.views))
     db.set(req.params.id.views, db.get(req.params.id.views) + 1)
     res.redirect(db.get(req.params.id))
   } catch {
