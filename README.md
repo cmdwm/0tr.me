@@ -24,7 +24,7 @@ https://github.com/cmdwm/0tr.me/assets/35583237/ea26d9e9-7a00-4ae5-bb4f-6a61453c
 - Includes section that shows all monetary contributors (via GH Sponsors)
 ***
 #### Upcoming features
-Hmm, quite empty. Suggest some on our new [Suggestions](https://building.0tr.me) page!
+Hmm, quite empty. Suggest some on our new [Suggestions](https://building.0tr.me/suggestions) page!
 
 #### Currently working on
 - [x] Add more ways to monetize the site without asking for static donations
