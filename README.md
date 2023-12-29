@@ -28,7 +28,7 @@ Hmm, quite empty. Suggest some on our new [Suggestions](https://building.0tr.me)
 
 #### Currently working on
 - [x] Add more ways to monetize the site without asking for static donations
-- [x] [ ] Keep monetary contributor uploaded files forever (waive 12hr limit)
+- [x] Keep monetary contributor uploaded files forever (waive 12hr limit)
 - [x] Sanitize SVG formats to strip `<script>` tags
 
 See something on this list that you can add? Make a pull request and you'll be listed on our homepage forever!
