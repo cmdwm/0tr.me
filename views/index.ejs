@@ -1,9 +1,9 @@
 <html>
   <head>
-
-    </script>
-    <script 
-src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta name="theme-color" content="#4d64f1">
+    
+  
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -68,19 +68,42 @@ src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <div id="one" class="content">
       
- <center>
-     <h4 style="margin: 0; text-transform: uppercase;">
-      
-      this domain was expensive.<br>
+
+<div class="splashMain" style="display: flex; flex-wrap: wrap; justify-content: center;">
+   <div class="leftSplash" style="margin: 20px; margin-left: 50px;">
+     <center><h1 style="font-weight: 500; font-size: 30px; margin: 3px;">🦦 0tr.me<span class="no-mobile"> - we do everything</span></h1></center>
+
+     <p style="font-size: 18px;">Each month, we save users over 700,000 bytes from long URLs and serve almost 15 gig<span class="no-pc">abyte</span>s of images.<span class="no-mobile"> 10% of our requests come from our free custom domains, and the rest come from platforms such as Twitter, Discord, Slack and more.</span></p>
+     <p class="no-pc" style="font-size: 15px; text-align: center;"><b><%= urls %></b> URLs Shortened • <b><%= views %></b> Views • <b><%= images %></b> Images </p>
+     <h4 class="no-mobile" style="text-transform: uppercase; margin: 0;">
        follow me<span class="no-mobile"> on &#120143;</span> <a style="color: white;" href="https://twitter.com/willmccrudden">@willmccrudden</a><span class="no-mobile">.</span>
      </h4>
-   
+   </div>
+
+   <div class="bentoStats no-mobile">
+
+   <div class="statLongbox">
+     <h1><%= urls %></h1>
+    <span class="subtext">URLs Shortened
+     </span>
+     </div>
+   <div class="statShortbox">
+     <h2><%= views %></h2>
+    <span class="subtext2">Visits</span>
+     </div>
+     <div class="statShortbox">
+     <h2><%= images %></h2>
+    <span class="subtext2">Images
+     </span>
+     </div>
+   </div>
+</div>
 
 <!-- The Modal -->
 <%- include('/home/runner/otter-dot-me/views/partials/custom-slug.ejs') %>
     </div>
-  <div style="width: 101%;">
-    <img style="margin-left: -4px; width: 150vw" src="https://cdn.glitch.global/65f2254a-8e40-4b88-aae8-bb42a288bd4d/wave.svg?v=1679271908333">
+  <div style="width: 101%;" class="mainDiv">
+    <img draggable="false" style="margin-left: -4px; width: 150vw;" src="https://cdn.glitch.global/65f2254a-8e40-4b88-aae8-bb42a288bd4d/wave.svg?v=1679271908333">
   </div>
     <div style="background-color: #fb9a28; margin: 0; ">
       <div style="margin-left: 10px; margin-right: 10px;">
@@ -169,13 +192,15 @@ src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     </details>
 
-    <center style="margin-bottom: 80px;">Made with <i style="color: red;" class="fa-solid fa-heart"></i> by <a href="https://willm.xyz" style="text-decoration: none; color: white;"><u>Will M</u></a> <br><i>&copy; 2023 McCrudden Innovations LP</i></center>
+    <center style="margin-bottom: 80px;"><span style="font-weight: 500">Made with <i style="color: red;" class="fa-solid fa-heart"></i> by <a href="https://willm.xyz" style="text-decoration: none; color: white;"><u>Will M</u></a></span> <br>&copy; <span id="year">0000</span> McCrudden Innovations LP</center>
     <div data-ea-publisher="maileeco" id="otter" data-ea-type="text" data-ea-style="fixedfooter"></div>
 
 
 </body>
 
   <script>
+    document.getElementById("year").innerHTML = new Date().getFullYear();
+
     function slDecode() {
         fetch('/decode?slug=' + document.getElementById('decSl').value.replace('0tr.me/', '').replace('https://', '').replace('http://', '') )
           .then(response => response.text())

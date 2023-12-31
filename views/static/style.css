@@ -1,5 +1,52 @@
   @import url('https://fonts.googleapis.com/css2?family=Anton&family=Kanit&display=swap');
+.bentoStats {
+  margin: 10px;
+  position: sticky;
+}
+.bentoStats h1 {
+  font-size: 33px;
+  line-height: 1;
+  margin: 3px;
+  font-weight: 500;
+  color: white
+}
+.bentoStats h2 {
+  font-size: 22px;
+  line-height: 1;
+  margin: 3px;
+  font-weight: 500;
+  color: white
+}
+.bentoStats .subtext {
+  font-size: 20px;
+  color: #253099;
+}
+.bentoStats .subtext2 {
+  font-size: 14px;
+  color: #253099;
+}
 
+.statLongbox {
+  border: none;
+  background-color: #4554d9;
+   padding: 20px;
+  width: 250px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 5px;
+
+}
+
+.statShortbox {
+  border: none;
+  background-color: #4554d9;
+   padding: 20px;
+  width: 122.5px;
+ display:inline-block;
+  border-radius: 12px;
+  text-align: center;
+
+}
 html {
   scroll-behavior: smooth;
 }
@@ -52,6 +99,24 @@ body {
       z-index: -1; /* added z-index to move the curve behind the content */
     }
 @media (max-width: 767px) {
+  .splashMain {
+    zoom: 80%;
+  }
+  .bentoStats h2 {
+  font-size: 15px;
+  }
+  .bentoStats h1 {
+  font-size: 25px;
+  }
+  .bentoStats .subtext {
+    font-size: 15px;
+  }
+  .leftSplash {
+    width: 100%;
+  }
+  .mainDiv {
+    margin-top: -50px;
+  }
   .button {
     width: 99%;
   }
@@ -68,6 +133,12 @@ body {
 
 /* Styles for desktop devices */
 @media (min-width: 768px) {
+  .leftSplash {
+    width: 50%;
+  }
+  .mainDiv {
+    margin-top: -100px;
+  }
   .no-pc {
     display: none
   }

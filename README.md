@@ -12,10 +12,10 @@ https://github.com/cmdwm/0tr.me/assets/35583237/ea26d9e9-7a00-4ae5-bb4f-6a61453c
 ***
 #### Current features + more
 - Progressive Web App (PWA) on mobile devices + Windows & Mac
-- [Status Page](https://status.0tr.me) and [Changelog Site](https://building.0tr.me)
+- Free integrated [Status Page](https://status.0tr.me) and [Changelog Site](https://building.0tr.me)
 - URL shortening with pre-generated slugs + custom slugs
 - URL Analytics such as views and generate Pretty QR codes
-- Publicly decode slugs and show the long URL behind them
+- Publicly decode slugs and preview the long URL behind them
 - File hosting with directory clear every 12 hours to save resources
 - Support for custom domains via DNS `CNAME` record
 - Monetized with [EthicalAds](https://ethicalads.io) & [Stripe](https://stripe.com) to support user payments
@@ -36,9 +36,11 @@ See something on this list that you can add? Make a pull request and you'll be l
 ## Self Hosting
 While I don't plan on providing support for self-hosting, I can tell you some basic things to get you started. This project is programmed in Node (obviously), with Express.js to serve content and qjson-db to store slugs. 
 
-Just clone this GitHub repo, and download all the prerequisites. You can find them in `package.json`.  
+> Interested in using a free custom domain with 0tr.me? See [this section](https://0tr.me/#custom-domain) for instructions.
 
-You can spin up a free host on [Replit ⠕](https://replit.com) or [🎏 Glitch](https://glitch.com).
+Just clone this GitHub repo, and download all the prerequisites. You can find them in `package.json`. You can spin up a free host on [Replit ⠕](https://replit.com) or [🎏 Glitch](https://glitch.com). Our main instance of 0tr.me is powered by [⚡️ GalaxyGate](https://galaxygate.net).
+
+* **Important note:** You'll notice our public stats may seem falsely inflated. This is due to us not programatically counting analytics about 9 months after launch. You'll want to remove the inflation when selfhosting for an accurate count.
 
 ### The .env file
 

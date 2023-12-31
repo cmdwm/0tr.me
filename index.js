@@ -150,17 +150,39 @@ if(!db.get(slug) && session.payment_status == 'paid') {
   }
 
 })
+let urlCount
+function formatNumber(num) {
+    return num >= 1e6 ? (num / 1e6).toFixed(1) + 'M' : num >= 1e3 ? (num / 1e3).toFixed(1) + 'K' : num.toString();
+}
+
+
 
 app.get('/', (req, res) => {
+  fs.readFile('storage.json', 'utf8', (err, data) => {
+      if (err) return console.error("Error reading file:", err);
+
+      try {
+          const urls = new Set(Object.keys(JSON.parse(data)));
+          urlCount = Math.ceil(urls.size / 2)
+      } catch (error) {
+          console.error("Error parsing JSON:", error);
+      }
+  });
+
+  db.set('viewCount', db.get('viewCount') + 1)
   var contributors = db.get('contributors')
   var sponsors = db.get('ghSponsors')
     res.render('index', {
      'contributors': contributors,
-    'sponsors': sponsors
+    'sponsors': sponsors,
+    'urls': formatNumber(urlCount + 1000),
+    'views':formatNumber(db.get('viewCount') + 119512),
+    'images': formatNumber(Number(db.get('uploadCount')) + 63)
     });
 });
 
 app.get('/i/:file', function(req, res) {
+  db.set('viewCount', db.get('viewCount') + 1)
   const filePath = __dirname + '/uploads/' + req.params.file;
   
   // Check if file exists
@@ -176,6 +198,7 @@ app.get('/i/:file', function(req, res) {
 });
 
 app.post('/upload', upload.single('file'), function(req, res) {
+  db.set('uploadCount', Number(db.get('uploadCount')) + 1)
 let shareUrl
 if(!req.query.xUrl) {
   shareUrl = 'https://0tr.me'
@@ -218,6 +241,7 @@ request(`https://quickchart.io/qr?text=https%3A%2F%2F0tr.me%2F${id}&size=200&cen
 })
 
 app.get('/submit', function(req, res) {
+  db.set('viewCount', db.get('viewCount') + 1)
   var slug = randomstring(7);
   var url = req.query.url
   var views = db.get(slug.views)
@@ -263,6 +287,7 @@ app.get('/undefined', function(req, res) {
 })
 
 app.get('/:id', function(req, res) {
+  db.set('viewCount', db.get('viewCount') + 1)
   try {
     db.set(req.params.id.views, db.get(req.params.id.views) + 1)
     res.redirect(db.get(req.params.id))
