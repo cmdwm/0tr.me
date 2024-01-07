@@ -99,6 +99,10 @@ body {
       z-index: -1; /* added z-index to move the curve behind the content */
     }
 @media (max-width: 767px) {
+  .leftSplash {
+    margin-left: 0px;
+    margin: 20px;
+  }
   .splashMain {
     zoom: 80%;
   }
@@ -135,6 +139,8 @@ body {
 @media (min-width: 768px) {
   .leftSplash {
     width: 50%;
+    margin-left: 50px;
+    margin: 20px;
   }
   .mainDiv {
     margin-top: -100px;
