@@ -465,7 +465,7 @@ input:invalid {
 }
 @media screen and (max-width: 480px) {
   table {
-   zoom: 10%;
+  font-size: 12px;
   }
 }
 div.ea-content {

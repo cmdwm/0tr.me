@@ -92,6 +92,11 @@ app.get('/favicon.ico', function(req, res) {
   res.sendFile(__dirname + '/0tr.png')
 })
 
+app.get('/contact', function(req, res) {
+  res.render('contact')
+})
+
+
 app.get('/checkout/custom', async function(req, res) {
   try {
     if(!req.query.url && !req.query.slug) return res.send(`Error: No required query. <br>Just email hi@willm.xyz and I'll look into this/give you a refund if it was a payment issue.`)
@@ -190,7 +195,7 @@ app.get('/i/:file', function(req, res) {
     if (err) {
       console.error(err);
       //res.redirect('/');
-      res.sendFile(__dirname + '/img-deleted.png')
+      res.sendFile(__dirname + '/image_file.png')
     } else {
       res.sendFile(filePath);
     }
@@ -283,7 +288,7 @@ db.set(url, slug) //backward compatibility
 })
 
 app.get('/undefined', function(req, res) {
- res.sendFile(__dirname + '/url-removed.png')
+ res.sendFile(__dirname + '/short_url.png')
 })
 
 app.get('/:id', function(req, res) {
