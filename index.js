@@ -1,5 +1,17 @@
-const express = require('express');
+const express = require("express");
 const app = express();
+
+const {KindeClient, GrantType} = require("@kinde-oss/kinde-nodejs-sdk");
+const user_store = __dirname + "/user_store.json";
+const kindeOptions = {
+    domain: 'https://auth.0tr.me',
+    clientId: process.env.KINDE_ID,
+    clientSecret: process.env.KINDE_SECRET,
+    redirectUri: 'https://0tr.me/callback',
+    logoutRedirectUri: 'https://0tr.me',
+    grantType: GrantType.PKCE
+};
+
 const multer = require('multer');
 const cron = require('node-cron');
 const fs = require('fs');
@@ -11,8 +23,88 @@ const qjson = require("qjson-db");
 var request = require('request');
 const db = new qjson(__dirname + "/storage.json");
 const wave = process.env.wave
+const ejs = require('ejs')
 app.set('view engine', 'ejs');
 app.use('/static',express.static(__dirname + '/views/static'));
+
+
+const kindeClient = new KindeClient(kindeOptions);
+app.get("/login", kindeClient.login(), (req, res) => {
+    return res.redirect("/");
+});
+
+app.get("/backwardQR", (req, res) => {
+  res.redirect('/qr?id=' + db.get(req.query.url))
+})
+
+app.get("/viewCount", (req, res) => {
+ res.send( db.get(req.query.id.views) + ' views')
+})
+
+app.get("/logout", kindeClient.logout());
+
+app.get("/register", kindeClient.register(), (req, res) => {
+    return res.redirect("/");
+});
+app.get("/callback", kindeClient.callback(), (req, res) => {
+    return res.redirect("/dashboard");
+});
+
+app.get("/dashboard", async function(req, res) {
+  const isAuthenticated = await kindeClient.isAuthenticated(req);
+  if (isAuthenticated) {
+    const data = JSON.parse(fs.readFileSync(user_store, 'utf-8')) || {};
+
+if(!data[kindeClient.getUserDetails(req).id]) {
+  bestData = data['noData']
+} else {
+  bestData = data[kindeClient.getUserDetails(req).id].reverse()
+}
+    
+  res.render(
+    "dashboard", {
+      user: kindeClient.getUserDetails(req),
+      userUrls: bestData || [] })
+    
+  } else {
+    res.redirect('/login')
+  }
+})
+
+
+function addUrlToUser(user_id, url, json_file_path) {
+    const data = JSON.parse(fs.readFileSync(json_file_path, 'utf-8')) || {};
+    data[user_id] = [...(data[user_id] || []), url];
+    fs.writeFileSync(json_file_path, JSON.stringify(data, null, 4));
+}
+
+app.get("/new_user_url" , async function(req, res) {
+  const isAuthenticated = await kindeClient.isAuthenticated(req); // Boolean: true or false
+
+  if (isAuthenticated) {
+    
+    var slug = randomstring(7);
+    var url = req.query.url
+    var views = db.get(slug.views)
+    if(!url) return res.send('No Long URL specified. Try again.')
+    try {
+  db.set(url, slug) //backward compatibility
+    db.set(slug, url)
+    db.set(slug.views, 0)
+      addUrlToUser(kindeClient.getUserDetails(req).id, slug, user_store);
+      
+      res.render('submit', {
+        slug: slug,
+        url: url,
+        views: views
+      })
+    } catch {
+      res.send('wah')
+    }
+  } else {
+    res.redirect('/login')
+  }
+})
 
 const apiLimiter = rateLimit({
 	windowMs: 5 * 60 * 1000, // 15 minutes
@@ -162,7 +254,7 @@ function formatNumber(num) {
 
 
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   fs.readFile('storage.json', 'utf8', (err, data) => {
       if (err) return console.error("Error reading file:", err);
 
@@ -174,6 +266,17 @@ app.get('/', (req, res) => {
       }
   });
 
+let logDa
+
+  const isAuthenticated = await kindeClient.isAuthenticated(req); // Boolean: true or false
+var user = kindeClient.getUserDetails(req)
+  if (isAuthenticated) {
+    logDa = user.given_name.charAt(0).toUpperCase() + user.given_name.slice(1) + ' ' + user.family_name.charAt(0).toUpperCase()
+  } else {
+    logDa = 'Login'
+  }
+  
+
   db.set('viewCount', db.get('viewCount') + 1)
   var contributors = db.get('contributors')
   var sponsors = db.get('ghSponsors')
@@ -182,7 +285,8 @@ app.get('/', (req, res) => {
     'sponsors': sponsors,
     'urls': formatNumber(urlCount + 1000),
     'views':formatNumber(db.get('viewCount') + 119512),
-    'images': formatNumber(Number(db.get('uploadCount')) + 63)
+    'images': formatNumber(Number(db.get('uploadCount')) + 63),
+    'logDa': logDa
     });
 });
 
@@ -245,7 +349,7 @@ request(`https://quickchart.io/qr?text=https%3A%2F%2F0tr.me%2F${id}&size=200&cen
 
 })
 
-app.get('/submit', function(req, res) {
+app.get('/submit', async function(req, res) {
   db.set('viewCount', db.get('viewCount') + 1)
   var slug = randomstring(7);
   var url = req.query.url
@@ -261,11 +365,16 @@ if(url.includes('0tr.me/')) return res.render('submit', {
 db.set(url, slug) //backward compatibility
   db.set(slug, url)
   db.set(slug.views, 0)
+    const isAuthenticated = await kindeClient.isAuthenticated(req);
+    if(isAuthenticated) {
+    addUrlToUser(kindeClient.getUserDetails(req).id, slug, user_store);
+    }
     res.render('submit', {
       slug: slug,
       url: url,
       views: views
     })
+    
   } catch {
     res.send('wah')
   }

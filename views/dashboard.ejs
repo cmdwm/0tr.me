@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <script src="https://kit.fontawesome.com/22bd0071f3.js" crossorigin="anonymous"></script>
+    <title>otter dashboard</title>
+    <style>body {
+  --primary: #1e88e5;
+}</style>
+    <script async src="https://tally.so/widgets/embed.js"></script>
+  </head>
+  <body>
+    <main class="container" style="padding-top: 0;">
+<nav>
+  <ul>
+    <li><img style="width: 50px;" src="/favicon.ico"></li>
+  </ul>
+  <ul>
+    <li><a href="/"><i class="fa-solid fa-house"></i></a></li>
+    <li><a href="/logout" role="button"><i class="fa-solid fa-right-from-bracket"></i></a></li>
+  </ul>
+</nav>
+
+<header><hgroup style="margin-bottom: 0;">
+  <h1>Hello, <%= user.given_name.charAt(0).toUpperCase() + user.given_name.slice(1) %></h1>
+  <p style="margin-bottom: 0;">Welcome to your otter dashboard.</p>
+</hgroup></header>
+<div class="grid">
+<article>
+<header style="padding: 20px;">
+<h3 style="margin: 0; padding: 0; font-weight: 400;">Shorten a link</h3>
+</header>
+<form onsubmit="yayMsg()" action="/submit" target="dummyframe">
+
+  <!-- Markup example 2: input is after label -->
+  <input type="url" id="url" name="url" placeholder="Enter your Long URL" required>
+
+  <!-- Button -->
+  <button type="submit">Submit</button>
+  <span id="qrWrap" style="padding: 0; display: none;"><center>Success!<br><small>Refresh this page and the short link will appear on your list.</small></center></span>
+</form>
+</article>
+<div>
+<article>
+<header style="padding: 20px;">
+<h3 style="margin: 0; padding: 0; font-weight: 400;">Your short links</h3>
+</header>
+  
+<br>
+  <% userUrls.forEach(url => { %>
+  <header style="padding: 3px;">
+      <nav style="padding: 9px;">
+          <ul style="padding: 0">
+              <li style="padding: 0">0tr.me/<%= url %></li><li style="padding: 0;">&nbsp;&nbsp;</li>
+            <li style="padding: 0" data-tooltip="Launch"><a target="_blank" href="/<%=url%>"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+          </ul>
+          <ul style="padding: 0">
+              <li style="padding: 0;" data-tooltip="Edit"><a href="#tally-open=nWzopN&name=<%= user.given_name %>&email=<%= user.email %>&user_id=<%= user.id %>&url=https://0tr.me/<%=url %>" style="color: white;"> <i class="fa-solid fa-pen"></i></a></li><li style="padding: 0;">&nbsp;&nbsp;</li>
+              <li style="padding: 0" data-tooltip="Delete"><a style="color: red;" href="#tally-open=3EW1J4&name=<%= user.given_name %>&email=<%= user.email %>&user_id=<%= user.id %>&url=https://0tr.me/<%=url %>"><i class="fa-solid fa-trash-can"></i></a></li>
+          </ul>
+      </nav>
+  </header>
+  <% }); %>
+</article>
+
+
+</div>
+</div>
+<footer>
+
+
+      <center><span style="font-weight: 500">Made with <i style="color: red;" class="fa-solid fa-heart"></i> by <a href="https://willm.xyz" style="text-decoration: none; color: white;"><u>Will M</u></a> • <a href="/contact?name=<%= user.given_name.charAt(0).toUpperCase() + user.given_name.slice(1) %>&email=<%= user.email %>" style="text-decoration: none; color: white;"><i class="fa-regular fa-envelope"></i></a> <a href="https://github.com/cmdwm/0tr.me" style="text-decoration: none; color: white;"><i class="fa-brands fa-github"></i></a> 
+
+      </span> 
+  <br>&copy; <span id="year">0000</span> McCrudden Innovations LP</center>
+  
+</footer>
+    </main>
+    <script>
+      document.getElementById("year").innerHTML = new Date().getFullYear();
+      function yayMsg() {
+        var url = document.getElementById('url').value
+        document.getElementById('qrWrap').style.display = "block"
+      }
+    </script>
+    <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+  </body>
+</html>

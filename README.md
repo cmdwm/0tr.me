@@ -11,6 +11,7 @@ https://github.com/cmdwm/0tr.me/assets/35583237/ea26d9e9-7a00-4ae5-bb4f-6a61453c
 
 ***
 #### Current features + more
+- User dashboard powered by Kinde, allows users to track their own short links and edit/delete them
 - Progressive Web App (PWA) on mobile devices + Windows & Mac
 - Free integrated [Status Page](https://status.0tr.me) and [Changelog Site](https://building.0tr.me)
 - URL shortening with pre-generated slugs + custom slugs
@@ -48,7 +49,11 @@ The .env file has a few simple keys in them. You can rename these to suite your 
 
 `stripeApi` - Stripe.com API key for payments
 
-`stripePriceId` - Stripe Price ID for Custom URL slug payments
+`stripePriceId` - Stripe Price ID for Custom URL slug product
+
+`KINDE_SECRET` - Kinde.com Secret Key for user auth
+
+`KINDE_ID` - Kinde.com client ID for user auth
 
 Don't forget to exit test mode when you push this to production 😎
 
